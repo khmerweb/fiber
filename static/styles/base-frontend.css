@@ -1,0 +1,44 @@
+/* public/styles/base.css */
+
+:root{
+    --background-dark: #2596be;
+    --background: #a4dcee;
+    --background-light: #e7f7fb;
+    --body: white;
+    --panel: lightgrey;
+    --body-font: 14px/1.5 Vidaloka, OdorMeanChey;
+    --link: rgb(54, 54, 54);
+    --menu: #8cd3e9;
+    --menu-active: #0d9e5a;
+    --playlist-part:rgb(175, 175, 175);
+    --playlist-color: black;
+    --playlist-clicked: white;
+    --playlist-clicked-bg: #149165;
+    --color: rgb(71, 71, 71);
+}
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: var(--link);
+}
+
+a:hover{
+    opacity: .7;
+}
+
+.region{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+  
+html{
+    color: var(--color);
+    font: var(--body-font);
+    background: var(--background-light);
+}
