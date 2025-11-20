@@ -15,12 +15,12 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/static/(.*)",
       "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "main.go"
+      "dest": "/main.go"
     }
   ]
 }
