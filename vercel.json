@@ -20,7 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/main.go"
+      "dest": "main.go"
     }
   ]
 }
