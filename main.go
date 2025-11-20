@@ -21,13 +21,36 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+	engine := html.New("./views", ".html")
+	app := fiber.New(fiber.Config{Views: engine})
+	app.Static("/", "./static")
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:     "https://example.com, https://sub.example.com",
+		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
+		AllowHeaders:     "Origin,Content-Type,Accept",
+		AllowCredentials: true,
+		ExposeHeaders:    "Content-Length",
+		MaxAge:           300,
+	}))
 
-	app := fiber.New()
+	store := session.New()
+	app.Use(func(c *fiber.Ctx) error {
+		sess, err := store.Get(c)
+		if err != nil {
+			return err
+		}
 
-	// Define your Fiber routes here
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello from Fiber on Vercel!")
+		sess.Set("name", "Guest")
+		c.Locals("session", sess)
+
+		return c.Next()
 	})
+
+	frontRoute := app.Group("/")
+	adminRoute := app.Group("/admin")
+
+	frontend.FrontRoutes(frontRoute)
+	admin.AdminRoutes(adminRoute)
 
 	adaptor.FiberApp(app)(w, r)
 }
