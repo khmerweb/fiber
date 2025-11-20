@@ -10,15 +10,23 @@ import (
 	"fiber/admin"
 	"fiber/frontend"
 	"log"
+	"net/http"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/template/html/v3"
 	"github.com/joho/godotenv"
 )
 
-func Handler(c *fiber.Ctx) {
+func Handler(w http.ResponseWriter, r *http.Request) {
+	r.RequestURI = r.URL.String()
+
+	handler().ServeHTTP(w, r)
+}
+
+func handler() http.HandlerFunc {
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Static("/", "./static")
@@ -49,6 +57,8 @@ func Handler(c *fiber.Ctx) {
 
 	frontend.FrontRoutes(frontRoute)
 	admin.AdminRoutes(adminRoute)
+
+	return adaptor.FiberApp(app)
 }
 
 func main() {
