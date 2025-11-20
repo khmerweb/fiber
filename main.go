@@ -21,12 +21,7 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	r.RequestURI = r.URL.String()
 
-	handler().ServeHTTP(w, r)
-}
-
-func handler() http.HandlerFunc {
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Static("/", "./static")
@@ -58,7 +53,7 @@ func handler() http.HandlerFunc {
 	frontend.FrontRoutes(frontRoute)
 	admin.AdminRoutes(adminRoute)
 
-	return adaptor.FiberApp(app)
+	adaptor.FiberApp(app)(w, r)
 }
 
 func main() {
