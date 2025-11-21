@@ -2,9 +2,9 @@
 // go get github.com/gofiber/fiber/v2
 // go get -tool github.com/air-verse/air@latest
 
-package main
+//package main
 
-//package handler
+package handler
 
 import (
 	"fiber/admin"
