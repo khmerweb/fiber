@@ -23,7 +23,7 @@ import (
 func Handler(w http.ResponseWriter, r *http.Request) {
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
-	app.Static("/", "./static")
+	app.Static("/", "./public")
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     "https://example.com, https://sub.example.com",
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
@@ -63,7 +63,7 @@ func main() {
 
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
-	app.Static("/", "./static")
+	app.Static("/", "./public")
 	store := session.New()
 	app.Use(cors.New())
 	app.Use(func(c *fiber.Ctx) error {
