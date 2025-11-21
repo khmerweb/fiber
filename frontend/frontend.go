@@ -1,6 +1,8 @@
 package frontend
 
 import (
+	"fiber/db"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 )
@@ -9,8 +11,11 @@ func FrontRoutes(router fiber.Router) {
 	router.Get("/", func(c *fiber.Ctx) error {
 		sess := c.Locals("session").(*session.Session)
 		name := sess.Get("name").(string)
+		count := db.CountPosts("movie")
+
 		return c.Render("index", fiber.Map{
-			"Title": "Homepage " + name,
+			"Title": "ដំណឹង​ល្អ " + name,
+			"Count": count,
 		}, "base")
 	})
 

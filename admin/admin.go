@@ -11,8 +11,8 @@ func AdminRoutes(router fiber.Router) {
 		sess := c.Locals("session").(*session.Session)
 		name := sess.Get("name").(string)
 		return c.Render("about", fiber.Map{
-			"Title": "Adminpage " + name,
-		}, "base")
+			"Title": "ដំណឹង​ល្អ " + name,
+		}, "base-admin")
 	})
 
 }

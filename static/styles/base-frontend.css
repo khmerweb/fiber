@@ -1,20 +1,20 @@
 /* public/styles/base.css */
 
 :root{
-    --background-dark: #2596be;
+    --background-dark: #88160a;
     --background: #a4dcee;
     --background-light: #e7f7fb;
-    --body: white;
+    --body: #000000;
     --panel: lightgrey;
     --body-font: 14px/1.5 Vidaloka, OdorMeanChey;
-    --link: rgb(54, 54, 54);
-    --menu: #8cd3e9;
-    --menu-active: #0d9e5a;
+    --link: #fff;
+    --menu: #18222b;
+    --menu-active: #ee8395;
     --playlist-part:rgb(175, 175, 175);
     --playlist-color: black;
     --playlist-clicked: white;
-    --playlist-clicked-bg: #149165;
-    --color: rgb(71, 71, 71);
+    --playlist-clicked-bg: #cf3952;
+    --color: rgb(230, 230, 230);
 }
   
 *{
@@ -33,12 +33,13 @@ a:hover{
 }
 
 .region{
-    max-width: 1100px;
+    max-width: 1920px;
     margin: 0 auto;
+    padding: 0 50px;
 }
   
 html{
     color: var(--color);
     font: var(--body-font);
-    background: var(--background-light);
+    background: var(--body);
 }
