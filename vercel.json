@@ -7,17 +7,9 @@
       "config": {
         "includeFiles": "views/**/*.html" 
       }
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/**/(.*)",
-      "dest": "/public/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "/main.go"
