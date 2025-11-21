@@ -23,7 +23,7 @@ import (
 func Handler(w http.ResponseWriter, r *http.Request) {
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
-	app.Static("/", "public")
+	app.Static("/", "./public")
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     "https://example.com, https://sub.example.com",
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
