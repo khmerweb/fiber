@@ -47,14 +47,24 @@ func CountPosts() (map[string]int64, [][]Post) {
 		}
 		counts[category] = count
 		var pipeline mongo.Pipeline
+
+		matchStage := bson.D{
+			{Key: "$match", Value: bson.D{
+				{Key: "$and", Value: bson.A{
+					bson.D{{Key: "categories", Value: bson.D{{Key: "$regex", Value: category}, {Key: "$not", Value: bson.D{{Key: "$regex", Value: "unavailable"}}}}}},
+					bson.D{{Key: "videos", Value: bson.D{{Key: "$ne", Value: ""}}}},
+				}},
+			}},
+		}
+
 		if category != "news" {
 			pipeline = mongo.Pipeline{
-				bson.D{{Key: "$match", Value: bson.D{{Key: "categories", Value: bson.D{{Key: "$regex", Value: category}, {Key: "$options", Value: "i"}}}}}},
+				matchStage,
 				bson.D{{Key: "$sample", Value: bson.D{{Key: "size", Value: 20}}}},
 			}
 		} else {
 			pipeline = mongo.Pipeline{
-				bson.D{{Key: "$match", Value: bson.D{{Key: "categories", Value: bson.D{{Key: "$regex", Value: category}, {Key: "$options", Value: "i"}}}}}},
+				matchStage,
 				bson.D{{Key: "$sort", Value: bson.D{{Key: "date", Value: -1}}}},
 				bson.D{{Key: "$limit", Value: 20}},
 			}

@@ -156,7 +156,7 @@
         jq('.Home .container .wrapper:nth-child(1) p').css({'display':'block'})
     }
 
-    function onPlayerReady(event) {
+    function onPlayerReady(player, event) {
         player1.part = 0
         player1.index = 0
         player1.thumb = 1
@@ -168,8 +168,11 @@
         player2.label = 'ភាពយន្ត'
         player2.playlist = latestMovies 
         //displayPosts(rawPlaylist.news, pageAmount)
-        loadVideo(player1, latestNews)
-        loadVideo(player2, latestMovies)
+        if(player === "player1"){
+            loadVideo(player1, latestNews)
+        }else{
+            loadVideo(player2, latestMovies)
+        }
     }
 
     function changeCategory(playlist, label, obj=0, thumb=0, part=0) {
@@ -213,7 +216,7 @@
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
     }
 
-    function onPlayerError(event){
+    function onPlayerError(player,event){
         if(player.index + 1 < player.playlist[player.part].length){
             player.index += 1
             player.loadVideoById(player.playlist[player.part][player.index].id)
@@ -241,8 +244,13 @@
         }
     }
 
-    async function onPlayerStateChange(event) {   
+    async function onPlayerStateChange(player,event) {  
         if(event.data === YT.PlayerState.ENDED){
+            if(player === "player1"){
+                player = player1
+            } else {
+                player = player2
+            }
             if(player.index + 1 < player.playlist[player.part].length){
                 player.index += 1
                 player.loadVideoById(player.playlist[player.part][player.index].id)
@@ -351,9 +359,9 @@
                 "rel": 0,
             },
             events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange,
-                'onError': onPlayerError
+                'onReady': onPlayerReady.bind(null, "player1"),
+                'onStateChange': onPlayerStateChange.bind(null, "player1"),
+                'onError': onPlayerError.bind(null, "player1")
             }
         })
 
@@ -369,9 +377,9 @@
                 "rel": 0,
             },
             events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange,
-                'onError': onPlayerError
+                'onReady': onPlayerReady.bind(null, "player2"),
+                'onStateChange': onPlayerStateChange.bind(null, player2),
+                'onError': onPlayerError.bind(null, player2)
             }
         })
     }
