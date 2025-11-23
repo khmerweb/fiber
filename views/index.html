@@ -1,6 +1,8 @@
 <script>
-    //let playlists = JSON.parse({{.Playlists}})
-    //const frontend = {{.Frontend}}
+    let playlists = JSON.parse({{.Playlists}})
+    let countNews = {{.Counts.news}}
+    let countMovie = {{.Counts.movie}}
+    const frontend = {{.Frontend}}
 </script>
 <script src="/public/scripts/set-playlists.js"></script>
 
@@ -114,7 +116,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        padding-top: 56.25%;
+        padding-top: 53.4%;
         overflow: hidden;
         border: none;
         background: black;
@@ -159,7 +161,7 @@
     .player-wrapper .wrapper1,
     .player-wrapper .wrapper2{
         position: relative;
-        padding-top: 56.25%;
+        padding-top: 53%;
         overflow: hidden;
     }
     .player-wrapper .wrapper1 .latest-video,

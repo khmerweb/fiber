@@ -8,7 +8,7 @@
     const laodingVideo = 'NcQQVbioeZk'
     
     let category = 'news'
-    let pageAmount = Math.ceil(countPlaylists[0]/frontend)
+    let pageAmount = Math.ceil(countNews/20)
 
     function parseVideos(posts){
         let videos = []
@@ -20,36 +20,39 @@
         videos.thumbs = thumbs
         return videos
     }
-
+//{"news", "movie", "travel", "doc", "web", "sport", "food", "music", "game", "distraction"}
     let latestNews = parseVideos(playlists[0])
     latestNews.category = "news"
     let latestMovies = parseVideos(playlists[1])
     latestMovies.category = "movie"
     let latestTravel = parseVideos(playlists[2])
     latestTravel.category = "travel"
-    let latestSimulation = parseVideos(playlists[3])
-    latestSimulation.category = "simulation"
-    let latestSport = parseVideos(playlists[4])
+    let latestDocumentary = parseVideos(playlists[3])
+    latestDocumentary.category = "doc"
+    let latestWeb = parseVideos(playlists[4])
+    latestWeb.category = "web"
+    let latestSport = parseVideos(playlists[5])
     latestSport.category = "sport"
-    let latestDocumentary = parseVideos(playlists[5])
-    latestDocumentary.category = "documentary"
     let latestFood = parseVideos(playlists[6])
     latestFood.category = "food"
     let latestMusic = parseVideos(playlists[7])
     latestMusic.category = "music"
-    let latestGame = parseVideos(playlists[8])
-    latestGame.category = "game"
+    let latestSimulation = parseVideos(playlists[8])
+    latestSimulation.category = "game"
+    let latestGame = parseVideos(playlists[9])
+    latestGame.category = "distraction"
     
     let rawPlaylist = {
         news: playlists[0],
         movie: playlists[1],
         travel: playlists[2],
-        simulation: playlists[3],
-        sport: playlists[4],
-        documentary: playlists[5],
+        documentary: playlists[3],
+        web: playlists[4],
+        sport: playlists[5],
         food: playlists[6],
         music: playlists[7],
-        game: playlists[8],
+        simulation: playlists[8],
+        game: playlists[9],
     }
 
     let playlistThumbs = {
@@ -63,30 +66,19 @@
         game: rawPlaylist['game'][0].thumb,
     }
 
-    let CountPlaylists = {
-        news: countPlaylists[0],
-        movie: countPlaylists[1],
-        travel: countPlaylists[2],
-        simulation: countPlaylists[3],
-        sport: countPlaylists[4],
-        documentary: countPlaylists[5],
-        food: countPlaylists[6],
-        music: countPlaylists[7],
-        game: countPlaylists[8],
-    }
-
     let videoPlaylists = {
         news: latestNews,
         movie: latestMovies,
         travel: latestTravel,
-        simulation: latestSimulation,
+        web: latestWeb,
         sport: latestSport,
         documentary: latestDocumentary,
         food: latestFood,
         music: latestMusic,
+        simulation: latestSimulation,
         game: latestGame,
     }
-
+/*
     $(document).ready(function() {
         $(`.random-video button #movie`).attr('src', playlistThumbs['movie'])
         $(`.random-video button #travel`).attr('src', playlistThumbs['travel'])
@@ -106,7 +98,7 @@
         $(`.random-video button:nth-child(7) p`).html(countPlaylists[7] + " របាំ​តន្ត្រី")
         $(`.random-video button:nth-child(8) p`).html(countPlaylists[8] + " ល្បែង​កំសាន្ត")
     });
-    
+*/
     async function getRandomPlaylist(category, thumbs){
 		const response = await fetch(`/api/playlist/${category}`, {
 			method: 'POST',
@@ -152,7 +144,7 @@
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
     }
 
-    function loadVideo(playlist){
+    function loadVideo(player, playlist){
         if(playlist[0][0].type === "YouTubePlaylist"){
             player.loadPlaylist({list:playlist[0][0].id,listType:'playlist',index:0})
         }else{
@@ -165,13 +157,19 @@
     }
 
     function onPlayerReady(event) {
-        player.part = 0
-        player.index = 0
-        player.thumb = 1
-        player.label = 'ព័ត៌មាន'
-        player.playlist = latestNews 
-        displayPosts(rawPlaylist.news, pageAmount)
-        loadVideo(latestNews)
+        player1.part = 0
+        player1.index = 0
+        player1.thumb = 1
+        player1.label = 'ព័ត៌មាន'
+        player1.playlist = latestNews 
+        player2.part = 0
+        player2.index = 0
+        player2.thumb = 1
+        player2.label = 'ភាពយន្ត'
+        player2.playlist = latestMovies 
+        //displayPosts(rawPlaylist.news, pageAmount)
+        loadVideo(player1, latestNews)
+        loadVideo(player2, latestMovies)
     }
 
     function changeCategory(playlist, label, obj=0, thumb=0, part=0) {
@@ -337,7 +335,7 @@
 
     const ytPlayerId = 'player1'
     let initialVideoId = 'cdwal5Kw3Fc'
-    let player, player1, player2
+    let player1, player2
 
     
     function load() {

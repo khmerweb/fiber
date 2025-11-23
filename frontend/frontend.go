@@ -1,7 +1,9 @@
 package frontend
 
 import (
+	"encoding/json"
 	"fiber/db"
+	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 	//"github.com/gofiber/fiber/v2/middleware/session"
@@ -13,13 +15,19 @@ func FrontRoutes(router fiber.Router) {
 		//name := sess.Get("name").(string)
 
 		counts, posts := db.CountPosts()
+		jsonDataString, err := json.Marshal(posts)
+		if err != nil {
+			fmt.Println("Error marshalling string data:", err)
 
-		//fmt.Println(counts)
+		}
+		playlists := string(jsonDataString)
+		//fmt.Println(playlists)
 		return c.Render("index", fiber.Map{
-			"Title":   "ដំណឹង​ល្អ ",
-			"Counts":  counts,
-			"Posts":   posts,
-			"PageURL": "/",
+			"Title":     "ដំណឹង​ល្អ ",
+			"Counts":    counts,
+			"Posts":     posts,
+			"Playlists": playlists,
+			"PageURL":   "/",
 		}, "base")
 	})
 

@@ -11,14 +11,14 @@ import (
 )
 
 type Post struct {
-	ID         string `bson:"_id,omitempty"`
-	Title      string `bson:"title"`
-	Content    string `bson:"content"`
-	Categories string `bson:"categories"`
-	Thumb      string `bson:"thumb"`
-	Date       string `bson:"date"`
-	Videos     string `bson:"videos"`
-	Author     string `bson:"author"`
+	ID         string `bson:"_id,omitempty" json:"id,omitempty"`
+	Title      string `bson:"title" json:"title"`
+	Content    string `bson:"content" json:"content"`
+	Categories string `bson:"categories" json:"categories"`
+	Thumb      string `bson:"thumb" json:"thumb"`
+	Date       string `bson:"date" json:"date"`
+	Videos     string `bson:"videos" json:"videos"`
+	Author     string `bson:"author" json:"author"`
 }
 
 func CountPosts() (map[string]int64, [][]Post) {
