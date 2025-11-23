@@ -335,13 +335,31 @@
         }
     }
 
-    const ytPlayerId = 'youtube-player'
+    const ytPlayerId = 'player1'
     let initialVideoId = 'cdwal5Kw3Fc'
-    let player
+    let player, player1, player2
 
     
     function load() {
-        player = new YT.Player(ytPlayerId, {
+        player1 = new YT.Player('player1', {
+            height: '390',
+            width: '640',
+            videoId: initialVideoId,
+            playerVars: {
+                'playsinline': 1,
+                "enablejsapi": 1,
+                "mute": 1,
+                "autoplay": 1,
+                "rel": 0,
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onError': onPlayerError
+            }
+        })
+
+        player2 = new YT.Player('player2', {
             height: '390',
             width: '640',
             videoId: initialVideoId,

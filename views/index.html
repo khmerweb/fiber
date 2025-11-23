@@ -1,7 +1,12 @@
+<script>
+    //let playlists = JSON.parse({{.Playlists}})
+    //const frontend = {{.Frontend}}
+</script>
+<script src="/public/scripts/set-playlists.js"></script>
 
 <section class="Main region">
     <div class="random-video">
-        {{ range $outerIndex, $innerArray := .Posts }}
+    {{ range $outerIndex, $innerArray := .Posts }}
         <button  onclick="changeCategory(videoPlaylists.movie, 'ភាពយន្ត​​​', rawPlaylist.movie, 1)">
         {{ if eq $outerIndex 0 }}
             {{ with index $innerArray 0 }}
@@ -65,7 +70,36 @@
             {{ end }}
         {{ end }}
         </button>
-        {{ end }}
+    {{ end }}
+    </div>
+
+    <div class="player-wrapper">
+        <div class="wrapper1">
+            <div id="player1"></div>
+            <div class="latest-video">ព័ត៌មាន</div>
+            <div class="channel-logo">
+                <img src="/public/images/siteLogo.png" alt=''/>
+            </div>
+            <div class="play-all1">
+                <button onclick="changeCategory(videoPlaylists.news, 'ព័ត៌មាន', rawPlaylist.news)" class='center'>ព័ត៌មាន</button>
+                <button onclick="nextPrevious('previous')">វីដេអូមុន</button>
+                <button onclick="newPlaylist()" class='new-playlist'>ដូរ​កំរង​វីដេអូ​</button>
+                <button onclick="nextPrevious('next')">វីដេអូបន្ទាប់</button>
+            </div>
+        </div>
+        <div class="wrapper2">
+            <div id="player2"></div>
+            <div class="latest-video">ភាពយន្ត</div>
+            <div class="channel-logo">
+                <img src="/public/images/siteLogo.png" alt=''/>
+            </div>
+            <div class="play-all2">
+                <button onclick="changeCategory(videoPlaylists.movie, 'ព័ត៌មាន', rawPlaylist.movie)" class='center'>ព័ត៌មាន</button>
+                <button onclick="nextPrevious('previous')">វីដេអូមុន</button>
+                <button onclick="newPlaylist()" class='new-playlist'>ដូរ​កំរង​វីដេអូ​</button>
+                <button onclick="nextPrevious('next')">វីដេអូបន្ទាប់</button>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -76,17 +110,12 @@
         grid-gap: 10px;
         padding: 10px 0 0;
     }
-    .random-video .wrapper{
-        grid-column: 2 / span 2;
-        grid-row: 2 / span 2;
-        position: relative;
-        padding-top: 53%;
-    }
     .random-video button{
         position: relative;
         width: 100%;
         height: 100%;
-        padding-top: 53.4%;
+        padding-top: 56.25%;
+        overflow: hidden;
         border: none;
         background: black;
     }
@@ -121,19 +150,35 @@
         color: orange;
         display: none;
     }
-    .random-video .latest-video{
+    .player-wrapper{
+        display: grid;
+        grid-template-columns: repeat(2, calc(50% - 5px));
+        grid-gap: 10px;
+        padding: 10px 0;
+    }
+    .player-wrapper .wrapper1,
+    .player-wrapper .wrapper2{
+        position: relative;
+        padding-top: 56.25%;
+        overflow: hidden;
+    }
+    .player-wrapper .wrapper1 .latest-video,
+    .player-wrapper .wrapper2 .latest-video{
         position: absolute;
         top: 5px;
         left: 10px;
         color: orange;
     }
-    .random-video .channel-logo img{
+     
+    .player-wrapper .wrapper1 .channel-logo img, 
+    .player-wrapper .wrapper2 .channel-logo img{
         position: absolute;
         top: 5px;
         right: 5px;
         width: 6%;
     }
-    .random-video .wrapper .play-all{
+    .player-wrapper .wrapper1 .play-all1,
+    .player-wrapper .wrapper2 .play-all2{
         position: relative;
         bottom: 7px;
         text-align: center;
@@ -143,7 +188,9 @@
         align-content: center;
         gap: 15px;
     }
-    .random-video .wrapper .play-all button{
+    
+    .player-wrapper .play-all1 button, 
+    .player-wrapper .play-all2 button{
         color: orange;
         padding-top: 0;
         width: auto;
@@ -151,27 +198,33 @@
         font-family: Vidaloka, OdorMeanChey;
         border: none;
     }
-    .random-video .wrapper .play-all:hover{
+    .player-wrapper .play-all1:hover, 
+    .player-wrapper .play-all2:hover{
         cursor: pointer;
     }
-    .random-video .wrapper:hover .play-all{
+    .player-wrapper .wrapper1:hover .play-all1, 
+    .player-wrapper .wrapper2:hover .play-all2{
         visibility: visible;
     }
-    .random-video .wrapper #youtube-player{
+    .player-wrapper #player1, 
+    .player-wrapper #player2{
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: black;
+        background: var(--menu);
     }
 
     @media only screen and (max-width: 600px){
+        .Main{
+            padding: 0;
+        }
         .random-video{
             grid-template-columns: 100%;
             padding: 10px;
         }
-        .random-video .wrapper{
+        .player-wrapper{
             grid-column: 1 / span 1;
             grid-row: 1 / span 1;
             padding-top: 51.7%;
