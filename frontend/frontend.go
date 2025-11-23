@@ -12,12 +12,13 @@ func FrontRoutes(router fiber.Router) {
 		//sess := c.Locals("session").(*session.Session)
 		//name := sess.Get("name").(string)
 
-		counts := db.CountPosts()
+		counts, posts := db.CountPosts()
 
 		//fmt.Println(counts)
 		return c.Render("index", fiber.Map{
 			"Title":   "ដំណឹង​ល្អ ",
 			"Counts":  counts,
+			"Posts":   posts,
 			"PageURL": "/",
 		}, "base")
 	})

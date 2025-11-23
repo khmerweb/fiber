@@ -1,4 +1,184 @@
 
 <section class="Main region">
-    <p>number of posts: {{.Counts}}</p>
+    <div class="random-video">
+        {{ range $outerIndex, $innerArray := .Posts }}
+        <button  onclick="changeCategory(videoPlaylists.movie, 'ភាពយន្ត​​​', rawPlaylist.movie, 1)">
+        {{ if eq $outerIndex 0 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.news}} ព័ត៌មាន</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 1 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.movie}} ភាពយន្ត</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 2 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.travel}} ដើរ​លេង</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 3 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.doc}} ឯកសារ</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 4 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.web}} គេហទំព័រ</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 5 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.sport}} កីឡា</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 6 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.food}} មុខ​ម្ហូប</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 7 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.music}} របាំ​តន្ត្រី</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 8 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.game}} ពិភព​និម្មិត</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ else if eq $outerIndex 9 }}
+            {{ with index $innerArray 0 }}
+                <img id="movie" src="{{ .Thumb }}" />
+                <p class="news-label">{{$.Counts.distraction}} ល្បែង​កំសាន្ត</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            {{ end }}
+        {{ end }}
+        </button>
+        {{ end }}
+    </div>
 </section>
+
+<style>
+    .random-video{
+        display: grid;
+        grid-template-columns: repeat(5, calc(20% - 8px));
+        grid-gap: 10px;
+        padding: 10px 0 0;
+    }
+    .random-video .wrapper{
+        grid-column: 2 / span 2;
+        grid-row: 2 / span 2;
+        position: relative;
+        padding-top: 53%;
+    }
+    .random-video button{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-top: 53.4%;
+        border: none;
+        background: black;
+    }
+    .random-video button:hover{
+        cursor: pointer;
+        opacity: .7;
+    }
+    .random-video button img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .random-video button p{
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #253443;
+        color: white;
+        text-align: center;
+        font-family: Vidaloka, OdorMeanChey;
+        padding: 5px;
+        min-width: 90px;
+    }
+    .random-video button .playing{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: Vidaloka, OdorMeanChey;
+        color: orange;
+        display: none;
+    }
+    .random-video .latest-video{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: orange;
+    }
+    .random-video .channel-logo img{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 6%;
+    }
+    .random-video .wrapper .play-all{
+        position: relative;
+        bottom: 7px;
+        text-align: center;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        gap: 15px;
+    }
+    .random-video .wrapper .play-all button{
+        color: orange;
+        padding-top: 0;
+        width: auto;
+        background-color: transparent;
+        font-family: Vidaloka, OdorMeanChey;
+        border: none;
+    }
+    .random-video .wrapper .play-all:hover{
+        cursor: pointer;
+    }
+    .random-video .wrapper:hover .play-all{
+        visibility: visible;
+    }
+    .random-video .wrapper #youtube-player{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+    }
+
+    @media only screen and (max-width: 600px){
+        .random-video{
+            grid-template-columns: 100%;
+            padding: 10px;
+        }
+        .random-video .wrapper{
+            grid-column: 1 / span 1;
+            grid-row: 1 / span 1;
+            padding-top: 51.7%;
+        }
+        .Home .container{
+            grid-template-columns: 100%;
+            padding: 30px 10px;
+        }
+    }   
+</style>
